@@ -1,24 +1,11 @@
 <template>
-  <v-app class="d-flex justify-center">
+  <v-app class="d-flex justify-center grey darken-4">
 
   <!-- Dev Mode Viewport Recognition -->
-     <!-- <v-tooltip color="deep-purple mon darken-4 mon" left>
+     <v-tooltip color="deep-purple mon darken-4 mon" left>
       <template  v-slot:activator="{ on }">
           <v-btn
-          v-scroll-to="{
-                          el: '#inja',
-                          duration: 1000,
-                          easing: 'ease-in-out',
-                          offset: -300,
-                          force: true,
-                          cancelable: true,
-                          onStart: onStart,
-                          onDone: onDone,
-                          onCancel: onCancel,
-                          x: false,
-                          y: true
 
-                      }"
           class="deep-purple mon darken-4 white--text"
           v-on="on"
           fab
@@ -31,16 +18,16 @@
       </template>
       <span class="font-weight-bold orange--text">Dev Mode </span>
       <span> Viewport Recognition</span>
-    </v-tooltip> -->
+    </v-tooltip>
 
 <!-- scroll up -->
-          <v-fab-transition>
+          <!-- <v-fab-transition>
           <v-btn
           v-scroll-to="{
                           el: '#toolBar',
                           duration: 1000,
                           easing: 'ease-in-out',
-                          offset: -300,
+                          offset: 0,
                           force: true,
                           cancelable: true,
                           onStart: onStart,
@@ -49,8 +36,8 @@
                           x: false,
                           y: true
 
-                      }"
-          v-scroll="onScroll"      
+                      }"   
+          v-scroll="onScroll"     
           transition="fab-transition"      
           class="deep-purple mon darken-4 white--text"
           v-show="showBtn"
@@ -60,80 +47,169 @@
           right
           fixed
           >
+            
             <v-icon>mdi-chevron-up</v-icon>
           </v-btn>
           
-          </v-fab-transition>
+          </v-fab-transition> -->
      
 
 
   <!-- Toolbar -->
-  <v-card flat  class="ma-0 pa-0 transparent" id="scrolling-techniques">
+  
     
- 
-     <v-toolbar id="toolBar" flat :height="(viewport == 'xs')?50:100" class="mon ma-0 pa-0">
+  
+     <v-app-bar   elevate-on-scroll fixed id="toolBar"   :height="(viewport == 'xs')?80:120" class="toolb ma-0 pa-0 white pb-10">
 
-      <img :class="`${(viewport == 'xs') ? 'ml-3':'ml-12'} mt-6`" :height="(viewport == 'xs') ? '50':'70'"  src="./assets/ux tap logo.png"/>
+      <img  :class="`${(viewport == 'xs') ? 'ml-3':'ml-12'} `" :height="(viewport == 'xs') ? 50:70"  src="./assets/ux tap logo.png" />
 
       <v-spacer></v-spacer>
+
+      <a :href="worksUrl">
+      <v-btn 
+      
+      height="80"
+      :ripple="true"  
+      class=" 'mx-3' deep-purple--text text--darken-3  transparent text-capitalize   hidden-sm-and-down" 
+      text>
+
+      <v-row class="pa-0" justify="center" align="center">
+       
+       <v-col class="ma-0 pa-0 mb-2"  cols="12"><v-icon color="deep-purple darken-3">mdi-collage</v-icon></v-col>
+       <v-col class=" ma-0 pa-0 grey--text text--darken-3" cols="12"><span>My Works</span></v-col>
+
+      </v-row>
+   
+      </v-btn>
+      </a>
   
       <v-btn 
+      v-scroll-to="{
+                el: item.target,
+                duration: 1000,
+                easing: 'ease-in-out',
+                offset: -200,
+                force: true,
+                cancelable: true,
+                onStart: onStart,
+                onDone: onDone,
+                onCancel: onCancel,
+                x: false,
+                y: true
+
+            }"
       height="80"
       :ripple="true"  
       v-for="(item,i) in items" :key="i" 
-      :class="`${(i == 4)?'mr-12 ml-12' : 'mx-3'} deep-purple--text text--darken-3  transparent text-capitalize  mt-6 hidden-sm-and-down`" 
+      :href="(i==0)?'':''"
+      :class="`${(i == 4)?'mr-12 ml-12' : 'mx-3'} deep-purple--text text--darken-3  transparent text-capitalize   hidden-sm-and-down`" 
       text>
+
       <v-row class="pa-0" justify="center" align="center">
        
        <v-col class="ma-0 pa-0 mb-2"  cols="12"><v-icon color="deep-purple darken-3">{{item.icon}}</v-icon></v-col>
        <v-col class=" ma-0 pa-0 grey--text text--darken-3" cols="12"><span>{{item.title}}</span></v-col>
 
       </v-row>
+   
       </v-btn>
       
 
       <v-app-bar-nav-icon 
       x-large
       @click="drawer = !drawer"
-      class="transparent grey--text text--darken-3 mr-1 mt-6 hidden-md-and-up" >
+      class="transparent grey--text text--darken-3 mr-1  hidden-md-and-up" >
       </v-app-bar-nav-icon>
       
-      </v-toolbar>
-  </v-card>
+     </v-app-bar>
+
 
   <!-- Navigation Drawr -->
   <v-navigation-drawer 
+  floating
   right 
   app 
+  class="hidden-md-and-up"
   width="200"
   v-model="drawer">
   <v-row class="pa-0 " justify="center" align="start" no-gutters>
+  <v-img class="h100v d-flex justify-center" src="./assets/Beautiful.png">
+
+
+
+  <v-col
+  cols="12"
+  class="ma-0 pa-0">
+  <a :href="worksUrl">
+   <v-btn 
+      @click="drawer = !drawer"
+      tile
+      height="80"
+      width="200"
+      :ripple="true"  
+      class="d-inline-block white--text ma-0 pa-0   transparent text-capitalize" 
+      text>
+      
+
+        <v-icon color="white darken-3 ">mdi-collage</v-icon>
+        <span class="grey--text text--lighten-2 ml-2">My Works</span>
+        
+      
+      </v-btn>
+  </a>
+  </v-col>
+
   <v-col cols="12"
+  class="ma-0 pa-0"
   v-for="(item,i) in items" :key="i" 
 
   >
+
+
+ 
     <v-btn 
+          v-scroll-to="{
+                el: item.target,
+                duration: 1000,
+                easing: 'ease-in-out',
+                offset: -100,
+                force: true,
+                cancelable: true,
+                onStart: onStart,
+                onDone: onDone,
+                onCancel: onCancel,
+                x: false,
+                y: true
+
+            }"
+      @click="drawer = !drawer"
       tile
-      :absolute="(i == 4) ? true : false"
+      :absolute="(i == 3) ? true : false"
       bottom
       height="80"
       width="200"
       :ripple="true"  
-      class="d-inline-block deep-purple--text text--darken-3  transparent text-capitalize" 
+      class="d-inline-block white--text ma-0 pa-0   transparent text-capitalize" 
       text>
       
 
-        <v-icon color="deep-purple darken-3 ">{{item.icon}}</v-icon>
-        <span class="grey--text text--darken-3 ml-2">{{item.title}}</span>
+        <v-icon color="white darken-3 ">{{item.icon}}</v-icon>
+        <span class="grey--text text--lighten-2 ml-2">{{item.title}}</span>
         
       
       </v-btn>
+      
     </v-col>
+    </v-img>
   </v-row>
   </v-navigation-drawer>
 
+  <v-card flat :height="(viewport == 'xs')? 50 : 100"> 
+
+  </v-card>
+
   <!-- Introduce Me -->
-  <v-card flat class=" my-10">
+  <v-card flat class=" my-12">
     <v-row class="ma-0 pa-0  mx-12 " justify="center" align="top">
       <v-col
       class="mon ma-0 pa-0"
@@ -150,7 +226,21 @@
           qui error deserunt quo ipsa architecto nulla,
            molestias enim  saepe. Quo!</v-card >
         <v-card flat max-width="300" :class="`${(viewport == 'sm') ? 'body-1':''} mt-1 `">
-         <v-btn class=" text-capitalize hidden-sm-and-up  px-1 deep-purple lighten-4 deep-purple--text elevation-1"> Know Me Better</v-btn></v-card >
+         <v-btn           v-scroll-to="{
+                          el: '#work',
+                          duration: 1000,
+                          easing: 'ease-in-out',
+                          offset: -100,
+                          force: true,
+                          cancelable: true,
+                          onStart: onStart,
+                          onDone: onDone,
+                          onCancel: onCancel,
+                          x: false,
+                          y: true
+                      }" 
+         class=" text-capitalize hidden-sm-and-up  px-1 deep-purple lighten-4 deep-purple--text elevation-1">
+          Know Me Better</v-btn></v-card >
 
       </v-col
       >
@@ -180,10 +270,16 @@
         <v-parallax class="relative" :height="bannerH" src="./assets/banner.png">
           <v-card flat
           class="transparent">
-            <v-btn :width="(viewport == 'xs') ? 237:380" :height="(viewport == 'xs') ? 75:120" class="smw">
-              <img :height="(viewport == 'xs') ? 30:50" class="mr-1" src="./assets/my works icon.png" />
-              <span :class="`${(viewport == 'xs') ? 'title':'display-1' } ml-3 text-capitalize  font-weight-black`">See My Works</span>
-            </v-btn>
+          
+            <v-hover
+            v-slot:default="{ hover }"
+            >
+              <v-btn :href="worksUrl" :elevation="(hover == true) ? 24:8" :width="(viewport == 'xs') ? 237:380" :height="(viewport == 'xs') ? 75:120" class="smw">
+                <img :height="(viewport == 'xs') ? 30:50" class="mr-1" src="./assets/my works icon.png" />
+                <span :class="`${(viewport == 'xs') ? 'title':'display-1' } ml-3 text-capitalize  font-weight-black`">See My Works</span>
+              </v-btn>
+            </v-hover>
+          
           </v-card>
         </v-parallax>
         
@@ -192,12 +288,31 @@
 
   <!-- Know Me Better -->
 
-    <v-card flat class="text-center mon mt-12 hidden-xs-only">
-      <v-row class="pa-0 ma-0" justify="center" align="center">
-        <v-col class=" ma-0 pa-0 mb-n1 deep-purple--text text--darken-3" cols="12"><span>Know Me Better</span></v-col>
-        <v-col class="ma-0 pa-0" cols="12"><v-icon color="deep-purple darken-3" large>mdi-chevron-down</v-icon></v-col>
-      </v-row>
+    <v-card             flat class="text-center mon mt-8 hidden-xs-only">
+      <v-btn 
+      v-scroll-to="{
+                          el: '#work',
+                          duration: 1000,
+                          easing: 'ease-in-out',
+                          offset: -200,
+                          force: true,
+                          cancelable: true,
+                          onStart: onStart,
+                          onDone: onDone,
+                          onCancel: onCancel,
+                          x: false,
+                          y: true
+
+                      }"  text rounded height="60" class=" deep-purple--text">
+        <v-row class="pa-0 ma-0 py-3" justify="center" align="center">
+          <v-col class=" ma-0 pa-0 mb-n1  deep-purple--text text--darken-3" cols="12"><span>Know Me Better</span></v-col>
+          <v-col class="ma-0 pa-0" cols="12"><v-icon color="deep-purple darken-3" large>mdi-chevron-down</v-icon></v-col>
+        </v-row>
+      </v-btn>
     </v-card>
+
+
+
 
 
   <!-- My Works -->
@@ -205,7 +320,7 @@
 
     <!-- <v-img  src="./assets/Back Dot.png"> -->
     
-    <div id="inja" class="text-center my-12 display-2 font-weight-bold">
+    <div id="work" class="text-center my-12 display-2 font-weight-bold">
     How I Work
     </div>
 
@@ -281,7 +396,7 @@
 
 
   <!-- My Skills -->
-    <div class="text-center my-12 display-2 font-weight-bold">
+    <div id="skill" class="text-center my-12 display-2 font-weight-bold">
     My Skills
     </div>
 
@@ -325,7 +440,7 @@
 
 
   <!-- Tools I Use -->
-   <div class="text-center my-12 display-2 font-weight-bold">
+   <div id="tool" class="text-center my-12 display-2 font-weight-bold">
     My Tools
     </div>
 
@@ -369,53 +484,42 @@
   </v-card>
   
   <!-- Footer -->
-  <v-card class="footer d-flex justify-center">
-    <v-img src="./assets/footer dot.png"
+  <v-card id="footer" class="footer d-flex justify-center">
+    <v-img max-height="500" src="./assets/Beautiful.png"
     class="d-flex justify-center ma-0 pa-0">
     <v-card
     flat
     class="transparent my-12 d-flex"
     :max-width="(viewport == 'xs') ? 400 : 996">
-      
 
-    <v-row justify="center" class="mt-12">
-      <v-col
-      class="hidden-sm-and-down"
-      cols="6"
-      md='6'>
-        <v-img
-          contain
-          :max-height="500"
-          src="./assets/me footer.png"></v-img>
-      </v-col>
-      <v-col
-      :class="`${(xsm == true) ? 'justify-center' : 'justify-start'} ma-0 pa-0 d-flex  white--text`"
-      cols="12"
-      sm="12"
-      md="6">
       <v-card :max-width="footerW" class="transparent d-flex justify-center mx-12" flat>
       <v-row justify="start" class="ma-0 pa-0" no-gutters>
 
         <v-col cols="12" class="mb-6"><span :class="` ${(viewport == ('xs'))?'display-2':'display-3'}  font-weight-black white--text`">Contact Me</span></v-col>
-        <v-col cols="12" class="mb-1"><span :class="` ${(viewport == ('xs'))?'headline':'display-1'}  font-weight- white--text`">Amir.ivno@Gmail.com</span></v-col>
-        <v-col cols="12" class="mb-8"><span :class="` ${(viewport == ('xs'))?'headline':'display-1'}  font-weight- white--text`">+98 916 994 8770</span></v-col>
-        <v-col cols="12" class="mb-2"><span class=" mb-3 headline white--text">Find Me On</span></v-col>
+        <v-col cols="12" class="mb-1"><span :class="` ${(viewport == ('xs'))?'headline':'display-1'}  font-weight-light white--text`">Amir.ivno@Gmail.com</span></v-col>
+        <v-col cols="12" class="mb-8"><span :class="` ${(viewport == ('xs'))?'headline':'display-1'}  font-weight-light white--text`">+98 916 994 8770</span></v-col>
+        <v-col cols="12" class="mb-2"><span class=" mb-5 headline white--text">Find Me On</span></v-col>
         <v-col cols="12"><div>
-        <v-btn v-for="(account,i) in accounts" icon :key="i"
+
+        
+           
+        <v-btn 
+        v-for="(account,i) in accounts"  :key="i"
+        :href="account.url"
+        icon
         :ripple="false"
-        class="mx-3"
+        class="mr-8"
         large>
           <v-avatar size="50" tile>
-            <v-img :src="account"></v-img>
+            <v-img :src="account.img"></v-img>
           </v-avatar>
         </v-btn>
+
         </div></v-col>
 
       </v-row>
       </v-card>
 
-      </v-col>
-    </v-row>
 
     </v-card>
     </v-img>
@@ -438,14 +542,14 @@
       showBtn:false,
       drawer:false,
       items:[
-        {title:'My Works',icon:'mdi-collage'},
-        {title:'How I Work',icon:'mdi-cellphone-link'},
-        {title:'My Skills',icon:'mdi-cards'},
-        {title:'Tools I Use',icon:'mdi-tools'},
-        {title:'contact me',icon:'mdi-auto-fix'}
+        {title:'How I Work',icon:'mdi-cellphone-link',target:'#work'},
+        {title:'My Skills',icon:'mdi-cards',target:'#skill'},
+        {title:'Tools I Use',icon:'mdi-tools',target:'#tool'},
+        {title:'contact me',icon:'mdi-auto-fix',target:'#footer'}
       ],
       mew:0,
       bannerH:0,
+      worksUrl:'https://www.google.com',
       hows:[
         {title:'Start from the End',description:'what I doing is really im doing is really important thing to do',img:require('./assets/work1.png'),dot:require('./assets/dot1.svg')},
         {title:'Define the Problems & Ideation',description:'what I doing is really im doing is really important thing to do',img:require('./assets/work2.png'),dot:require('./assets/dot2.svg')},
@@ -478,10 +582,9 @@
       ],
       toolW:'',
       accounts:[
-        require('./assets/dribbble.png'),
-        require('./assets/behance.png'),
-        require('./assets/instagram.png'),
-        require('./assets/discord.png')
+        {img:require('./assets/dribbble.png'),url:''},
+        {img:require('./assets/behance.png'),url:''},
+        {img:require('./assets/instagram.png'),url:'https://www.instagram.com/uxtap/'},
       ],
       footerW:'',
       xsm:false,
@@ -490,20 +593,15 @@
 
     mounted () {
       this.onResize()
-      this.backToggle()
+      
     },
 
     methods: {
 
         onScroll (e) {
-        if (typeof window === 'undefined') return
-        const top = window.pageYOffset ||   e.target.scrollTop || 0
-        this.showBtn = top >= 500
+        let top = e.target.scrollTop
+        this.showBtn = top >= 3
           },
-
-        backToggle(){
-          (scrollY >= 1000) ? this.showBtn = true : this.showBtn = false
-        },
         onResize () {
             if (window.innerWidth >= 1904){ //xlarge ;
 
@@ -563,18 +661,7 @@
       
             
     },
-        scrollToTop () {
-      let container = document.getElementById('scrolling-techniques')
-      container.scrollIntoView() // not working
-      
-      // Below is working
- //     let event = new CustomEvent('scroll', {})
- //     container.pageYOffset = 0
- //     setTimeout(() => {
-//        container.scrollTop = 0
- //     })
-//      container.dispatchEvent(event)
-    },
+
     
 
     
@@ -588,9 +675,19 @@
   scroll-behavior: smooth;
 }
 
+a{
+    text-decoration: none;
+}
+
+.h100v{
+  height: 100vh;
+}
 .v-application{
   font-family: 'Montserrat', sans-serif;
   
+}
+.stick{
+  position:sticky !important;
 }
 .relative{
   position: relative;
@@ -630,6 +727,11 @@
   background-color: #3F3D56 !important;
   border-top-left-radius: 40px !important;
   border-top-right-radius: 40px !important;
+}
+
+.toolb{
+  border-bottom-left-radius: 40px !important;
+  border-bottom-right-radius: 40px !important;
 }
 
 
